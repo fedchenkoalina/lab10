@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+   <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script defer type="text/babel">
+import React, { useState, useEffect } from 'react';
+      function TrafficLight() {
+        const [color, setColor] = useState('red');
+
+        useEffect(() => {
+          const interval = setInterval(() => {
+            if(color === 'red') {
+              setColor('green');
+            } else if (color === 'green') {
+              setColor('yellow');
+            } else {
+              setColor('red');
+            }
+          }, 3000);
+
+          return () => clearInterval(interval);
+        }, [color]);
+
+        return(
+          <div>
+            <div className={color === 'red' ? 'red light' : 'light'}></div>
+            <div className={color === 'yellow' ? 'yellow light' : 'light'}></div>
+            <div className={color === 'green' ? 'green light' : 'light'}></div>
+          </div>
+        );
+      }
+  ReactDOM.render(<TrafficLight />, document.getElementById('root'))
+      </script>
+
+  </body>
+</html>

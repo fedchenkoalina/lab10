@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+   <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script defer type="text/babel">
+
+      import React, { useState, useEffect } from 'react';
+
+      function Revert({ s }){
+        const [reverted, setReverted] = useState(s);
+
+        useEffect(() => {
+          const interval = setInterval(() => {
+            setReverted(prev => prev.charAt(prev.length - 1) + prev.slice(0, -1));
+          }, 1000);
+          return () => clearInterval(interval);
+        }, [s]);
+
+        return <div>{reverted}</div>;
+      };
+
+      ReactDOM.render(<Revert s={'привет'} />, document.getElementById('root'))
+      </script>
+  </body>
+</html>
